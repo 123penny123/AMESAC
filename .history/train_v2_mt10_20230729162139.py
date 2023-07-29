@@ -1,0 +1,40 @@
+# from this import d
+import torch
+import os
+import argparse
+from utils import get_config
+from env import MT10_Env
+from policy import SACNetwork, MTSACNetwork, MLPrepresentation, MTMHSACNetwork, MixExpertAttentionSACNetwork,MMOESACNetwork,MTTD3Network,CARESACNetwork
+from agent import SAC_Agent, MTSAC_Agent, MTMHSAC_Agent, MTTD3_Agent
+
+def setup(config_path):
+    parser = argparse.ArgumentParser()
+    config = get_config(config_path)
+    os.environ['DISPLAY'] = ":1"
+    torch.random.manual_seed(config.seed)
+    torch.cuda.manual_seed(config.seed)
+    return config
+
+if __name__ == "__main__":
+    env_config = setup(config_path="./config/mt10.yaml")
+    agent_config = setup(config_path="./config/care.yaml")
+    # training environment setup
+    envs = MT10_Env(agent_config.task_one_hot, env_config)
+    envs.seed(env_config.seed)
+    observation_space = envs.observation_space 
+    action_space = envs.action_space
+    # eval environment setup
+    eval_envs = MT10_Env(agent_config.task_one_hot, env_config)
+    eval_envs.seed(env_config.seed+100)
+    
+    policy = MixExpertAttentionSACNetwork(observation_space,
+                                        action_space,
+                                        env_config.num_tasks,
+                                        agent_config)
+    agent = MTMHSAC_Agent(env_config,
+                        agent_config,
+                        envs,
+                        eval_envs,
+                        policy)
+    
+    agent.train()

@@ -1,0 +1,41 @@
+policy_type: "Gaussian" # Gaussian | Deterministic
+gamma: 0.99
+tau: 0.005        
+lr: 0.0003
+epsi: 0.000001
+betas: [0.9, 0.999]
+alpha: 0.2
+automatic_entropy_tuning: True
+loss_reweight: False
+target_update_interval: 1
+update_every: 1
+seed: 123456  
+obsnorm_range: 5
+rewnorm_range: 5
+
+expert_num: 12 # mt10: 3 mt50:12 mujoco:2
+rep_hidden_sizes: [400, 400]
+exp_hidden_sizes: [400,400,400]
+exp_value_hidden_sizes: [400,400,400,400]
+tow_hidden_sizes: [400]
+
+batch_size: 256 # mojuco: 1024
+buffer_size: 20000 # mt10: 100000 mt50:20000 mujoco:250000
+device: 'cuda:0'
+process_obs: False
+
+LOG_SIG_MIN: -20
+LOG_SIG_MAX: 2
+epsilon: 0.000001
+
+seed: 123456
+num_steps: 2000001
+start_steps: 300
+eval_episodes: 10
+pcgrad: False
+memory_sample_reshape: True
+mode: test  
+task_one_hot: True
+
+logdir: "./logs/mt50/mtmesac_12_exp/"
+modeldir: "./models/mt50/mtmesac_12_exp/"

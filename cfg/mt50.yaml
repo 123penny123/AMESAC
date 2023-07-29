@@ -1,0 +1,7 @@
+name: metaworld-mt50
+num_tasks: 50
+parallels: 1
+timelimit: 150
+seed: 1234567
+use_rnn: False
+ 

@@ -1,0 +1,6 @@
+name: metaworld-mt10
+num_tasks: 10
+parallels: 1
+timelimit: 150
+seed: 123456
+use_rnn: False
