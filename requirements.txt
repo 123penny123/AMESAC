@@ -1,0 +1,11 @@
+mpi4py==3.0.3
+mtrl==1.0.0
+numpy==1.23.5
+numpy==1.22.3
+omegaconf==2.0.6
+opencv_python==4.6.0.66
+PyYAML==6.0
+scipy==1.4.1
+tensorboard==2.2.2
+torch==1.11.0
+tqdm==4.64.0
